@@ -1,16 +1,22 @@
 from time import sleep
 import requests
+from distutils.util import strtobool
+from urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 
 class HASS_API:
-    def __init__(self, ip, port, key, url="/api", https=False):
+    def __init__(self, ip, port, key, url="/api", https=False, verify=True):
 
-        if https:
+        if strtobool(https):
             self.api = "https://"
         else:
             self.api = "http://"
 
         self.api = self.api + str(ip) + ":" + str(port) + str(url)
+
+        self.verify = strtobool(verify)
 
         self.header = {
             "Authorization": "Bearer {}".format(key),
@@ -20,12 +26,12 @@ class HASS_API:
     def write(self, id: str):
         url = self.api + "/services/input_boolean/turn_on"
         data = {"entity_id": id}
-        res = requests.post(url, json=data, headers=self.header)
+        res = requests.post(url, json=data, headers=self.header, verify=self.verify)
         res.raise_for_status()
 
     def read(self, id: str) -> int:
         url = self.api + "/states/" + id
-        res = requests.get(url, timeout=11, headers=self.header)
+        res = requests.get(url, timeout=11, headers=self.header, verify=self.verify)
         res.raise_for_status()
         return int(float(res.json()["state"]))
 
