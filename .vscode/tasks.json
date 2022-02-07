@@ -1,0 +1,20 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "pyinstaller",
+            "type": "shell",
+            "command": "pipenv run pyinstaller --hiddenimport win32timezone -F ha_session.py",
+            "reveal": "always",
+            "focus": true,
+            "clear": false,
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

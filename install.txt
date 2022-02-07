@@ -1,0 +1,12 @@
+1 - copier le fichier config.ini dans le dossier C:\ProgramData\ha_session\
+2 - modifier le fichier config.ini comme suis :
+    modifier l'adresse du serveur Home Assistant 
+    modifier le/les nom dutilisateur et les ID Home assistant associés
+
+3 - copier le fichier dist/ha_session.exe dans le dossier C:\ProgramData\ha_session\
+3 - ouvrir une invite de commande en tant qu'administrateur
+4 - lancer la commande "C:\ProgramData\ha_session\ha_session.exe install"
+5 - dans le gestionnaire de services modifier le service ha_session comme suis :
+    dans l'onglet general:
+        type de demmarage "auto"
+        cliquer sur démmarer
